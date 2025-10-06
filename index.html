@@ -95,6 +95,46 @@
         .text-outline {
             text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
         }
+        
+        /* PDF & Print Specific Styles */
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                font-size: 10pt;
+            }
+            header, footer, nav {
+                display: none !important;
+            }
+            main.container {
+                max-width: 100% !important;
+                padding: 0.5in !important;
+                margin: 0 !important;
+            }
+            section {
+                margin-bottom: 1.5rem !important;
+                padding: 0 !important;
+            }
+            .pyramid-container, .section-card, .mock-browser-window {
+                break-inside: avoid; /* Prevents elements from splitting across pages */
+            }
+            .section-card, .mock-browser-window {
+                box-shadow: none !important;
+                transform: none !important;
+                border: 1px solid #e5e7eb;
+            }
+            .glow-effect {
+                box-shadow: none !important;
+                border: 2px solid #0C2340 !important; /* Replace glow with a solid border for print */
+            }
+            a {
+                color: #007398 !important; /* ND Bright Blue */
+                text-decoration: underline !important;
+            }
+            .text-outline {
+               text-shadow: -0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000, 0.5px 0.5px 0 #000;
+            }
+        }
     </style>
 </head>
 <body class="bg-nd-gray text-gray-800">
@@ -132,7 +172,7 @@
                     <!-- Tier 4 -->
                     <polygon points="100,0 115,15 85,15" fill="#0C2340"/>
                 </svg>
-                <div class="absolute inset-0 flex flex-col cursor-pointer">
+                <div class="absolute inset-0 flex flex-col">
                     <!-- Tier 4 Text -->
                     <div class="pyramid-svg-text text-white" style="height: 15%;">
                         <h3 class="font-bold text-xs sm:text-sm md:text-base text-outline">Tier 4</h3>
@@ -154,10 +194,10 @@
                         <p class="text-sm sm:text-base text-outline">Direct Interaction</p>
                     </div>
                     <!-- Tier 0 Text -->
-                    <div id="tier-0-pyramid" class="pyramid-svg-text text-nd-blue border-4 border-nd-blue glow-effect" style="height: 25%;">
+                    <a href="https://selfservice.nd.edu" target="_blank" id="tier-0-pyramid" class="pyramid-svg-text text-nd-blue border-4 border-nd-blue glow-effect" style="height: 25%;">
                         <h3 class="font-bold text-xl sm:text-2xl">Tier 0: Self Service Center</h3>
                         <p class="text-sm sm:text-base">Your first stop! Find answers on your own, anytime.</p>
-                    </div>
+                    </a>
                 </div>
             </div>
         </section>
@@ -383,6 +423,7 @@
 
 </body>
 </html>
+
 
 
 
