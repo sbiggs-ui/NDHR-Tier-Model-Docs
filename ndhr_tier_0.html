@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NDHR Tier Model: A Guide to the Self Service Center</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                'nd-blue': '#0C2340',
+                'nd-gold': '#AE9142',
+                'nd-bright-blue': '#007398',
+                'nd-light-blue': '#45A8DE',
+                'nd-dark-green': '#0A5C35',
+                'nd-orange': '#D85820',
+                'nd-gray': '#F1F1F1',
+              },
+              fontFamily: {
+                'sans': ['Public Sans', 'sans-serif'],
+                'serif': ['Lora', 'serif'],
+              }
+            }
+          }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Public Sans', sans-serif;
+            scroll-behavior: smooth;
+        }
+        h1, h2, h3, h4, .font-serif {
+            font-family: 'Lora', serif;
+        }
+        .pyramid-container {
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+        }
+        .kba-index-item {
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .kba-index-item:hover {
+            background-color: #eef2ff;
+        }
+        .section-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .glow-effect {
+            box-shadow: 0 0 15px 5px rgba(174, 145, 66, 0.6);
+        }
+        /* Mock UI styles */
+        .mock-browser-window {
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            overflow: hidden;
+        }
+        .mock-browser-header {
+            background-color: #f3f4f6;
+            padding: 0.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        .mock-dot {
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 9999px;
+        }
+        .pyramid-svg-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0.5rem;
+            line-height: 1.2;
+            transition: all 0.3s ease;
+        }
+        .pyramid-svg-text:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+        .text-outline {
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+        }
+    </style>
+</head>
+<body class="bg-nd-gray text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+             <div class="text-xl md:text-2xl font-bold text-nd-blue font-serif">ND HR</div>
+            <nav class="hidden md:flex space-x-6 text-gray-600">
+                <a href="#tier-model" class="hover:text-nd-gold">The Tier Model</a>
+                <a href="#tier-0" class="hover:text-nd-gold">Tier 0: Self Service</a>
+                <a href="#searching" class="hover:text-nd-gold">Finding Info</a>
+                <a href="#architecture" class="hover:text-nd-gold">Site Architecture</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <!-- Section 1: The Tier Model Pyramid -->
+        <section id="tier-model" class="text-center mb-20">
+            <h2 class="text-3xl md:text-4xl font-bold text-nd-blue mb-4">How Campus Concerns Are Organized</h2>
+            <p class="max-w-3xl mx-auto text-lg text-gray-600 mb-12">NDHR uses a tiered model to organize support and information for the campus community. This ensures you get the right help efficiently. Most questions can be answered in the first few tiers, starting with resources you can access yourself.</p>
+
+            <div class="pyramid-container relative">
+                <svg viewBox="0 0 200 100" class="w-full h-auto drop-shadow-lg">
+                    <!-- Tier 0 -->
+                    <polygon points="25,75 175,75 200,100 0,100" fill="#AE9142"/>
+                    <!-- Tier 1 -->
+                    <polygon points="50,50 150,50 175,75 25,75" fill="#0A5C35"/>
+                    <!-- Tier 2 -->
+                    <polygon points="70,30 130,30 150,50 50,50" fill="#45A8DE"/>
+                    <!-- Tier 3 -->
+                    <polygon points="85,15 115,15 130,30 70,30" fill="#007398"/>
+                    <!-- Tier 4 -->
+                    <polygon points="100,0 115,15 85,15" fill="#0C2340"/>
+                </svg>
+                <div class="absolute inset-0 flex flex-col cursor-pointer">
+                    <!-- Tier 4 Text -->
+                    <div class="pyramid-svg-text text-white" style="height: 15%;">
+                        <h3 class="font-bold text-xs sm:text-sm md:text-base text-outline">Tier 4</h3>
+                        <p class="text-xs hidden sm:block text-outline">Exceptions</p>
+                    </div>
+                    <!-- Tier 3 Text -->
+                    <div class="pyramid-svg-text text-white" style="height: 15%;">
+                         <h3 class="font-bold text-sm sm:text-base md:text-lg text-outline">Tier 3</h3>
+                        <p class="text-xs sm:text-sm text-outline">COE</p>
+                    </div>
+                    <!-- Tier 2 Text -->
+                    <div class="pyramid-svg-text text-white" style="height: 20%;">
+                        <h3 class="font-bold text-base sm:text-lg md:text-xl text-outline">Tier 2</h3>
+                        <p class="text-sm sm:text-base text-outline">Specialized</p>
+                    </div>
+                    <!-- Tier 1 Text -->
+                    <div class="pyramid-svg-text text-white" style="height: 25%;">
+                        <h3 class="font-bold text-lg sm:text-xl md:text-2xl text-outline">Tier 1</h3>
+                        <p class="text-sm sm:text-base text-outline">Direct Interaction</p>
+                    </div>
+                    <!-- Tier 0 Text -->
+                    <div id="tier-0-pyramid" class="pyramid-svg-text text-nd-blue border-4 border-nd-blue glow-effect" style="height: 25%;">
+                        <h3 class="font-bold text-xl sm:text-2xl">Tier 0: Self Service Center</h3>
+                        <p class="text-sm sm:text-base">Your first stop! Find answers on your own, anytime.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Deep Dive on Tier 0 -->
+        <section id="tier-0" class="mb-20">
+            <div class="bg-white p-8 md:p-12 rounded-lg shadow-xl border border-gray-200">
+                <div class="text-center">
+                    <div class="inline-block bg-nd-gold text-nd-blue rounded-full px-4 py-2 font-bold mb-4 font-sans">TIER 0</div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-nd-blue mb-4">The Self Service Center</h2>
+                    <p class="max-w-3xl mx-auto text-lg text-gray-600 mb-8">This is the foundation of our support model for campus. The Self Service Center is a comprehensive online portal designed to give you instant access to HR information. If you can't find what you need, an NDHR employee can help guide you to the right resource or escalate your concern.</p>
+                    <a href="https://nd.service-now.com/hr_portal" target="_blank" class="inline-block bg-nd-blue text-white font-bold py-3 px-8 rounded-lg hover:bg-nd-bright-blue transition-colors text-lg font-sans">Go to the Self Service Center &rarr;</a>
+                </div>
+
+                <div class="mt-12 pt-8 border-t">
+                    <h3 class="text-2xl font-bold text-center text-nd-blue mb-8">Anatomy of the Homepage</h3>
+                    <div class="mock-browser-window bg-gray-100 p-4">
+                        <div class="mock-browser-header">
+                           <div class="mock-dot bg-red-500"></div><div class="mock-dot bg-yellow-500"></div><div class="mock-dot bg-green-500"></div>
+                        </div>
+                        <div class="bg-white p-6">
+                            <!-- Mock Header -->
+                            <div class="bg-nd-blue p-8 rounded-lg text-white text-center mb-6" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1NiIgaGVpZ2h0PSI1NiIgdmlld0JveD0iMCAwIDU2IDU2Ij48cGF0aCBmaWxsPSIjQUU5MTQyIiBkPSJNMjggMEwyMS44MyAyMS44MyAwIDI4bDIxLjgzIDYuMTdMMjggNTZsNi4xNy0yMS44M0w1NiAyOCAzNC4xNyAyMS44M3oiIGZpbGwtb3BhY2l0eT0iMC4xIi8+PC9zdmc+');">
+                                <h2 class="text-3xl font-bold mb-2">Hello, Employee!</h2>
+                                <div class="relative max-w-lg mx-auto">
+                                    <input type="text" placeholder="Start your search here." class="w-full rounded-md py-2 px-4 text-gray-800 font-sans">
+                                    <svg class="w-5 h-5 absolute right-3 top-2.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                                </div>
+                            </div>
+                             <!-- Mock Widgets -->
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 font-sans">
+                                <div class="lg:col-span-2">
+                                    <h4 class="font-bold text-nd-gold mb-2 font-serif">POPULAR TOPICS</h4>
+                                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                                        <div class="border p-3 rounded-md text-center bg-gray-50">Research</div>
+                                        <div class="border p-3 rounded-md text-center bg-gray-50">Accounts</div>
+                                        <div class="border p-3 rounded-md text-center bg-gray-50">Medical</div>
+                                        <div class="border p-3 rounded-md text-center bg-gray-50">Hiring</div>
+                                    </div>
+                                    <h4 class="font-bold text-nd-gold mt-6 mb-2 font-serif">MY APPLICATIONS</h4>
+                                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                        <div class="border p-3 rounded-md bg-gray-50"><span class="text-xs text-nd-bright-blue font-semibold">Featured</span><p>Anthem</p></div>
+                                        <div class="border p-3 rounded-md bg-gray-50"><span class="text-xs text-nd-bright-blue font-semibold">Featured</span><p>CareBridge</p></div>
+                                        <div class="border p-3 rounded-md bg-gray-50"><span class="text-xs text-nd-bright-blue font-semibold">Featured</span><p>Fidelity</p></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-600 mb-2 font-serif">HELPFUL LINKS</h4>
+                                    <ul class="space-y-2">
+                                        <li class="p-2 rounded-md bg-gray-50 border">Org Chart</li>
+                                        <li class="p-2 rounded-md bg-gray-50 border">Time Off & Holidays</li>
+                                        <li class="p-2 rounded-md bg-gray-50 border">My Profile</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: How to Search for Information -->
+        <section id="searching" class="mb-20">
+            <div class="text-center">
+                 <h2 class="text-3xl md:text-4xl font-bold text-nd-blue mb-4">Three Powerful Ways to Find Answers</h2>
+                 <p class="max-w-3xl mx-auto text-lg text-gray-600 mb-12">We've made it easy to find what you need. Choose the method that works best for you.</p>
+            </div>
+           
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1: Search Bar -->
+                <div class="section-card bg-white p-8 rounded-lg shadow-lg border border-gray-200">
+                     <div class="relative w-full border-2 border-nd-blue rounded-md p-2 mb-4"><input type="text" value="medical plans" class="w-full outline-none font-sans"><svg class="w-5 h-5 absolute right-2 top-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></div>
+                    <h3 class="text-2xl font-bold mb-3 text-nd-blue">The Search Bar</h3>
+                    <p class="text-gray-600">Type your question or keywords into the search bar. It's the fastest way to find specific articles and services.</p>
+                    <p class="text-sm text-gray-500 mt-2"><em><strong>Pro Tip:</strong> Use simple phrases or keywords for the best results.</em></p>
+                </div>
+                 <!-- Card 2: Main Menu -->
+                <div class="section-card bg-white p-8 rounded-lg shadow-lg border border-gray-200">
+                    <div class="bg-nd-blue text-white p-3 rounded-t-md font-bold font-sans">Benefits & Well-Being ▼</div>
+                    <div class="border-l border-r border-b rounded-b-md divide-y bg-white font-sans">
+                        <p class="p-2 hover:bg-gray-100">Open Enrollment</p>
+                        <p class="p-2 hover:bg-gray-100">Health & Life</p>
+                        <p class="p-2 hover:bg-gray-100">Mindful Living</p>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 mt-4 text-nd-blue">The Main Menu</h3>
+                    <p class="text-gray-600">Browse by category. The menu ("taxonomy") organizes all content logically, helping you explore a topic.</p>
+                </div>
+                <!-- Card 3: Chat Bot -->
+                <div class="section-card bg-white p-8 rounded-lg shadow-lg border border-gray-200">
+                    <div class="border rounded-lg shadow-inner">
+                        <div class="bg-gray-700 text-white p-2 rounded-t-lg font-bold text-sm font-sans">ND Support</div>
+                        <div class="p-3 bg-white space-y-2 h-24 font-sans">
+                            <div class="text-xs bg-gray-200 p-2 rounded-lg w-fit">What are the University Holidays?</div>
+                            <div class="text-xs bg-nd-light-blue text-white p-2 rounded-lg w-fit ml-auto">You can find them here...</div>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 mt-4 text-nd-blue">The Chat Bot</h3>
+                    <p class="text-gray-600">Ask a question in plain language. The chat bot can understand your query and point you to the right resources.</p>
+                    <p class="text-sm text-gray-500 mt-2"><em><strong>Pro Tip:</strong> Like search, using simple keywords works best.</em></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Basic Architecture -->
+        <section id="architecture">
+             <div class="text-center">
+                 <h2 class="text-3xl md:text-4xl font-bold text-nd-blue mb-4">Understanding The Content</h2>
+                 <p class="max-w-3xl mx-auto text-lg text-gray-600 mb-12">To best serve the campus, the Self Service Center uses three main content types to provide comprehensive information and support.</p>
+            </div>
+            
+            <div class="space-y-12">
+                <!-- Architecture 1: Topic Pages -->
+                <div class="section-card bg-white p-8 rounded-lg shadow-lg border border-gray-200">
+                    <h3 class="text-2xl font-bold mb-4 text-nd-blue text-center">Topic Pages: The Content Hubs</h3>
+                    <p class="text-gray-600 mb-6 text-center max-w-3xl mx-auto">These are central hubs for major HR subjects or life events. They provide a high-level overview and gather all related resources in one place.</p>
+                    <div class="mock-browser-window bg-nd-gray">
+                        <div class="mock-browser-header"><div class="mock-dot bg-red-500"></div><div class="mock-dot bg-yellow-500"></div><div class="mock-dot bg-green-500"></div></div>
+                        <div class="p-4">
+                            <h2 class="text-2xl font-bold text-nd-blue">Performance Culture</h2>
+                            <p class="text-sm text-gray-500 mb-4 font-sans">Celebrate achievements and foster growth through feedback.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="md:col-span-2">
+                                    <h4 class="font-bold mb-2 text-nd-blue">Rich Content</h4>
+                                    <div class="border rounded-lg p-4 bg-white font-sans">
+                                         <div class="flex space-x-1 mb-2 border-b"><div class="border-b-2 border-nd-gold px-3 py-1 font-bold">Philosophy</div><div class="px-3 py-1 text-gray-500">Key Components</div></div>
+                                        <p class="text-sm">A strong performance culture is where <strong>clear expectations</strong>, <strong>regular feedback</strong>, and <strong>continuous development</strong> are embedded into daily work...</p>
+                                    </div>
+                                    <h4 class="font-bold mb-2 mt-4 text-nd-blue">Support Resources</h4>
+                                     <div class="border rounded-lg p-4 bg-white grid grid-cols-1 sm:grid-cols-3 gap-2 font-sans">
+                                        <div class="border rounded p-2 text-sm">Article: Giving Feedback</div>
+                                        <div class="border rounded p-2 text-sm">Article: Goal Setting</div>
+                                        <div class="border rounded p-2 text-sm bg-nd-light-blue/20">Service: Submit Review</div>
+                                     </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-2 text-nd-blue">Quick Links</h4>
+                                    <div class="border rounded-lg p-2 bg-white text-sm text-nd-bright-blue font-sans">Performance Reviews</div>
+                                    <h4 class="font-bold mb-2 mt-4 text-nd-blue">My Applications</h4>
+                                    <div class="border rounded-lg p-2 bg-white text-sm font-sans">Endeavor</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Architecture 2: Knowledge Base Articles (KBAs) -->
+                <div class="section-card bg-white p-8 rounded-lg shadow-lg border border-gray-200">
+                    <h3 class="text-2xl font-bold mb-4 text-nd-blue text-center">Knowledge Base Articles (KBAs): Specific Answers</h3>
+                    <p class="text-gray-600 mb-6 text-center max-w-3xl mx-auto">KBAs provide detailed answers to specific questions, featuring an "index" at the top so you can jump straight to your answer.</p>
+                    <div class="mock-browser-window bg-white">
+                         <div class="mock-browser-header"><div class="mock-dot bg-red-500"></div><div class="mock-dot bg-yellow-500"></div><div class="mock-dot bg-green-500"></div></div>
+                         <div class="p-4">
+                            <p class="text-xs text-gray-500 font-sans">KB0028507</p>
+                            <h2 class="text-2xl font-bold mb-3 text-nd-blue">University Holidays</h2>
+                            <div class="bg-white rounded-lg divide-y mb-6 font-sans">
+                                <div class="kba-index-item p-2 font-bold text-nd-bright-blue hover:underline">Who is eligible for paid holidays?</div>
+                                <div class="kba-index-item p-2 font-bold text-nd-bright-blue hover:underline">What are the 2025 University Holidays?</div>
+                                <div class="kba-index-item p-2 font-bold text-nd-bright-blue hover:underline">How is holiday pay calculated?</div>
+                            </div>
+                            <h4 class="font-bold text-lg text-nd-blue">Who is eligible for paid holidays?</h4>
+                            <ul class="list-disc list-inside text-sm mb-4 font-sans"><li>Full-time employees: Eligible for all holidays.</li><li>Part-time employees: Eligible for holidays that fall within their work period.</li></ul>
+                             <div class="mt-6 text-center p-4 bg-nd-gold/20 border border-nd-gold/30 rounded-lg">
+                                <h4 class="font-bold text-nd-blue">Still have questions?</h4>
+                                <p class="font-semibold font-sans">Feel free to <a href="#" class="text-nd-bright-blue underline">contact us</a>! We're here to help.</p>
+                                <p class="text-sm mt-1 font-sans">This escalates your issue to <span class="font-bold">Tier 1</span> support.</p>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+
+                <!-- Architecture 3: Services (Requests) -->
+                <div class="section-card bg-white p-8 rounded-lg shadow-lg border border-gray-200">
+                    <h3 class="text-2xl font-bold mb-4 text-nd-blue text-center">Services (aka Requests): Taking Action</h3>
+                    <p class="text-gray-600 mb-6 text-center max-w-3xl mx-auto">Services are forms to request an action from HR. Many services also provide key information to answer your questions *before* you submit, potentially solving your issue on the spot.</p>
+                    <div class="mock-browser-window bg-white">
+                         <div class="mock-browser-header"><div class="mock-dot bg-red-500"></div><div class="mock-dot bg-yellow-500"></div><div class="mock-dot bg-green-500"></div></div>
+                         <div class="p-4">
+                            <h2 class="text-2xl font-bold mb-3 text-nd-blue">Time Off & Holidays</h2>
+                             <div class="mb-6 p-4 bg-nd-light-blue/10 border border-nd-light-blue/30 rounded-lg font-sans">
+                                <h4 class="font-bold text-nd-blue">Before you submit, please note:</h4>
+                                <ul class="list-disc list-inside text-sm mt-2">
+                                    <li>For holiday dates, please see KBA0028507.</li>
+                                    <li>Check your balance in My Notre Dame before submitting a correction.</li>
+                                    <li>Response times are typically 1-2 business days.</li>
+                                </ul>
+                            </div>
+                            <div class="font-sans space-y-4">
+                                <div>
+                                    <label class="font-semibold text-gray-700">Please select from the following</label>
+                                    <select class="w-full p-2 border rounded bg-white mt-1">
+                                        <option>General Question</option>
+                                        <option>Holiday Pay</option>
+                                        <option>Time Off Balance Correction</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="font-semibold text-gray-700">Please provide as much detail as possible</label>
+                                    <textarea class="w-full p-2 border rounded bg-white mt-1 h-24" placeholder="Enter details here..."></textarea>
+                                </div>
+                                <div>
+                                    <button class="border border-gray-300 rounded px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Add attachment</button>
+                                </div>
+                                <div class="text-center pt-2">
+                                     <p class="text-sm mt-1 font-sans">Submitting this form escalates your issue to <span class="font-bold">Tier 1</span> support.</p>
+                                </div>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="bg-nd-blue text-white mt-20">
+        <div class="container mx-auto px-6 py-8 text-center font-sans">
+             <div class="text-xl font-bold font-serif mb-2">ND HR</div>
+            <p>&copy; 2024 University of Notre Dame Office of Human Resources</p>
+            <p class="text-sm text-gray-400 mt-2">This infographic is a visual guide to how NDHR organizes information for the campus community.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
+
+
+
